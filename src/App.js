@@ -31,7 +31,7 @@ function App(){
             'https://hv0plw24zj.execute-api.ap-southeast-1.amazonaws.com/default/qnembed', // Messaging endpoint
             userMessageObj // Corrected the object being sent
         );
-        return response.data; // Return response data if you need it
+        //return response.data; // Return response data if you need it
     } catch (error) {
         console.error('Error sending user message to API:', error);
         // Display error message to user or handle the error appropriately
@@ -122,7 +122,7 @@ function App(){
     
     
   );
-}
+
 
 function ChatForm({handleUserMessage, isWaitingForResponse}){  
   const [input, setInput] = useState('');
