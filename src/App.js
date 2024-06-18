@@ -4,7 +4,7 @@ import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faRefresh } from '@fortawesome/free-solid-svg-icons';
 import { faPaperPlane } from '@fortawesome/free-solid-svg-icons';
-//import axios from 'axios';
+import axios from 'axios';
 
 function App(){
   const [messages, setMessages] = useState([]);
@@ -25,7 +25,7 @@ function App(){
       text: userMessage,
       sender: 'user'
     };
-    /* send user's message to the api end point
+    // send user's message to the api end point
     try {
         const response = await axios.post(
             'https://hv0plw24zj.execute-api.ap-southeast-1.amazonaws.com/default/qnembed', // Messaging endpoint
@@ -38,7 +38,7 @@ function App(){
         throw error; // Throw error to be handled by the caller if needed
     }
     };
-    */
+    //
     setIsWaitingForResponse(true);
     setMessages(prevMessages => [...prevMessages, userMessageObj]);    
     //bot reply placeholder for now till i get further api information
