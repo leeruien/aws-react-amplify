@@ -83,7 +83,7 @@ function App(){
       }
     }, 1000);*/
     
-  }
+  
   const handleRefresh=()=>{
     setMessages([]);
     sendGreetingMessage();
@@ -122,7 +122,7 @@ function App(){
     
     
   );
-
+};
 
 function ChatForm({handleUserMessage, isWaitingForResponse}){  
   const [input, setInput] = useState('');
