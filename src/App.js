@@ -37,7 +37,7 @@ function App(){
         // Display error message to user or handle the error appropriately
         throw error; // Throw error to be handled by the caller if needed
     }
-    };
+    
     //
     setIsWaitingForResponse(true);
     setMessages(prevMessages => [...prevMessages, userMessageObj]);    
@@ -83,7 +83,7 @@ function App(){
       }
     }, 1000);*/
     
-  
+  }
   const handleRefresh=()=>{
     setMessages([]);
     sendGreetingMessage();
@@ -122,7 +122,7 @@ function App(){
     
     
   );
-};
+}
 
 function ChatForm({handleUserMessage, isWaitingForResponse}){  
   const [input, setInput] = useState('');
