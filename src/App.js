@@ -4,7 +4,10 @@ import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faRefresh } from '@fortawesome/free-solid-svg-icons';
 import { faPaperPlane } from '@fortawesome/free-solid-svg-icons';
-import axios from 'axios';
+import { API } from 'aws-amplify';
+import awsconfig from './aws-exports';
+
+Amplify.configure(awsconfig);
 
 function App(){
   const [messages, setMessages] = useState([]);
@@ -27,10 +30,9 @@ function App(){
     };
     // send user's message to the api end point
     try {
-        const response = await axios.post(
-            'https://hv0plw24zj.execute-api.ap-southeast-1.amazonaws.com/default/qnembed', // Messaging endpoint
-            userMessageObj // Corrected the object being sent
-        );
+      const response = await API.post('qnembed-API', '/question', {
+        body: userMessageObj
+      });
         //return response.data; // Return response data if you need it
     } catch (error) {
         console.error('Error sending user message to API:', error);
