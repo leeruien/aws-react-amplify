@@ -20,23 +20,24 @@ function App(){
     };
     setMessages([greetingMessage]);
   };
-  const handleUserMessage = (userMessage) => { //this functionmakes a post request with values from our state in the border, url is to the end point in the api gateway
+  const handleUserMessage = async (userMessage) => { //this functionmakes a post request with values from our state in the border, url is to the end point in the api gateway
     const userMessageObj = { //add async in front of user message
       text: userMessage,
       sender: 'user'
     };
     /* send user's message to the api end point
     try {
-      await axios.post('https://i1xsjzkri4.execute-api.us-east-1.amazonaws.com/default/serverlessAppFunction', //messaging endpoint
-      {key1: userMessage};
-
-      );
-      return response.data //do i need this
-    } catch (error){
-      console.error('Error sending user message to api:', error);
-      //display error message to user
-      throw error;
+        const response = await axios.post(
+            'https://hv0plw24zj.execute-api.ap-southeast-1.amazonaws.com/default/qnembed', // Messaging endpoint
+            userMessageObj // Corrected the object being sent
+        );
+        return response.data; // Return response data if you need it
+    } catch (error) {
+        console.error('Error sending user message to API:', error);
+        // Display error message to user or handle the error appropriately
+        throw error; // Throw error to be handled by the caller if needed
     }
+    };
     */
     setIsWaitingForResponse(true);
     setMessages(prevMessages => [...prevMessages, userMessageObj]);    

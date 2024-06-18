@@ -12,7 +12,7 @@ body , html{
   justify-content: center;
   font-size: calc(18px + 2vmin);
   color: rgb(0, 0, 0);
-  background-color: aliceblue;
+  background-color: rgb(229, 237, 243);
   margin: 10px 0 0;    
 }
 .heading-container{
@@ -63,7 +63,7 @@ body , html{
   padding:0px;
   width: 440px;
   height: 74vh;
-  background-color: aliceblue;
+  background-color: rgb(246, 247, 249);
   border-radius: 10px;
   text-align: center;
 }
@@ -92,7 +92,7 @@ body , html{
 .bot{
   width: fit-content;
   text-align: left;
-  background-color: rgb(191, 238, 238);
+  background-color: rgb(201, 193, 238);
   border-radius: 20px;
   border-bottom-left-radius: 0px;
   float: left;
@@ -103,7 +103,7 @@ body , html{
 }
 .user{
   text-align: left;
-  background-color: rgb(244, 227, 240);
+  background-color: rgb(255, 255, 255);
   border-radius: 20px;
   border-bottom-right-radius: 0px;
   float: inline-end;
