@@ -40,29 +40,41 @@ function App(){
        ); 
        ;*/
        // send user's message to the api end point
-       await
-        fetch(' https://nhc6dafwmk.execute-api.ap-southeast-1.amazonaws.com/question_input', {
-            mode: 'cors',
-            method: 'POST',
-             body: JSON.stringify({
-               input_text: userMessageString }),
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        }).catch(function (error) {
-            console.log("Error comunicating to server");
-        })
-        console.log("after posting api")
+      //  await
+      //   fetch(' https://nhc6dafwmk.execute-api.ap-southeast-1.amazonaws.com/question_input', {
+      //       mode: 'cors',
+      //       method: 'POST',
+      //        body: JSON.stringify({
+      //          input_text: userMessageString }),
+      //       headers: {
+      //           'Content-Type': 'application/json'
+      //       }
+      //   }).catch(function (error) {
+      //       console.log("Error comunicating to server");
+      //   })
+      //   console.log("after posting api")
         
-        const response = await fetch('http://13.214.193.133:8080/api', {
-            mode: 'cors',
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        }).catch(function (error) {
-            console.log("Error comunicating to server", error.response);
-        })
+      //   const response = await fetch('http://13.212.53.73:8080/api', {
+      //       mode: 'cors',
+      //       method: 'GET',
+      //       headers: {
+      //           'Content-Type': 'application/json'
+      //       }
+      //   }).catch(function (error) {
+      //       console.log("Error comunicating to server", error.response);
+      //   })
+        const response = await fetch('http://13.213.16.238:8080/api', {
+          mode: 'cors',
+          method: 'POST',
+          body: JSON.stringify({
+            input_text: userMessageString }),
+          headers: {
+              'Content-Type': 'application/json'
+          }
+      }).catch(function (error) {
+          console.log("Error comunicating to server", error.response);
+      })
+
         console.log("after flask api")
       // if (!response.ok) {
       //     throw new Error('Failed to send message: ' + response.statusText);
