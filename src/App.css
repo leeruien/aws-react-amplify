@@ -20,13 +20,14 @@ body , html{
   height: 4vh;
   margin-top: 0;
   display: inline-block;
-  justify-content: center;
+  justify-content: space-between;
   border-color: black;
   
 }
-.heading-container button{
-  display: inline-block;
-  margin-top: 10vh;
+.header-border button{
+
+  height: 5vh;
+  
 }
 
 .input-container{
@@ -47,13 +48,14 @@ body , html{
   padding: 10px;
   font-size:16px;
   border-radius: 5px;
-  height: 4.2vh;
+  height: 4.3vh;
+  margin: 0;
 }
 .input-container button {
   padding: 10px 20px;
   border-radius: 5px;
   width: 80px;
-  height: 7.5vh;
+  height: 8.3vh;
 }
 
 .center-border{
@@ -73,9 +75,12 @@ body , html{
 .header-border{
   background-color: rgb(201, 193, 238);
   margin: 0px;
-  height: 7vh;
+  height: 8vh;
   margin: 0;
   padding: 0%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .message-box{
   word-wrap: break-word;
@@ -88,7 +93,7 @@ body , html{
 }
 
 .message-container{
-  height: 557px;
+  height: 74.5vh;
   overflow-y: auto;
   margin-top: 10px;
 }

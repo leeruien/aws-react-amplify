@@ -29,8 +29,10 @@ function App(){
     };
     const userMessageString = typeof userMessage === 'string' ? userMessage : String(userMessage);
     console.log('after payload')
-      // change api endpoint url ip to public ipv4 address of chromadb ec2 instance  
-        const response = await fetch('http://13.212.151.156:8080/api', { 
+      // change api endpoint url ip to public ipv4 address of chromadb ec2 instance 
+      //https://nhc6dafwmk.execute-api.ap-southeast-1.amazonaws.com/question_input 
+      //http://54.169.228.16:8080/api
+        const response = await fetch('http://52.221.210.138:80/api', { 
           mode: 'cors',
           method: 'POST',
           body: JSON.stringify({
@@ -43,34 +45,32 @@ function App(){
       })
 
       console.log("after flask api")      
-      console.log('API Response: success', response.ok);
-      console.log('API Response: success', response.data);
+      console.log('API Response: success', response);
+      console.log('API Response: success', response.body);
       const responseData = await response.json()
-      console.log('API Response: success', responseData);    
+      console.log('API Response: success', responseData.body);    // changed here
+      console.log(typeof(responseData))
+      console.log("response data body", responseData)
+      const responseBody = JSON.parse(responseData.body);
+      console.log(typeof(responseBody))
+      console.log("response body", responseBody["generated_text"])
     setIsWaitingForResponse(true);
     setMessages(prevMessages => [...prevMessages, userMessageObj]);    
     //get generated text
-    let answer = responseData.generated_text || '';
+    let answer = responseBody.generated_text || '';
+    
     console.log("this is answer", answer)
     // replace special characters in strings   
     answer = answer.replaceAll(/=/g, '')
-                    // .replaceAll(/[\r\n]+/g, ' ')
-                    // .replaceAll(/\*/g, '')
-                    // .replaceAll(/-/g, '')
-                    // .replaceAll(/".\n"/g, '')
-                    // .replaceAll(/"outputs":\s*\[|\],?\s*"inputs":\s*\[|\]\s*{/g, '')
-                    // .replaceAll(/{"inputs":\s*\[.*?\]}|{"outputs":\s*\[.*?\]}/g, '')
-                    // .replaceAll(/{"inputs":\s*\[.*?\}|{"outputs":\s*\[.*?\]}/g, '')
                     .replace(/\[.*?\]/g, '')
                     .replace(/\{.*?\}/g, '')
-                    // .replaceAll(/\bassistant\b/gi, '')
-                    // .replaceAll(/!|\|+/g, '')
                     .replaceAll(/^\s*>\s*/g, '')
                     .replaceAll(/[[\]{}"]|/g, '').trim();
 
     console.log("this is answer 2", answer)  
     while (answer.charAt(0) === '.' || 
        answer.charAt(0) === '=' || 
+       answer.charAt(0) === '#' ||
        answer.charAt(0) === ',' || 
        answer.charAt(0) === '-' || 
        answer.charAt(0) === ':'|| 
@@ -85,30 +85,17 @@ function App(){
     // Keep everything up to and including the last complete sentence
     answer = answer.substring(0, lastSentence + 1);
     answer = answer.trim();
-  }
-
-
-    // let sentences = answer.split(/(?<=[.!?])\s+/); //sentences is array 
-    
-    // //remove the truncated part of answer
-    // if (sentences.length > 0 && !/[.!?]$/.test(sentences[sentences.length - 1])) {
-    //   sentences.pop();
-    // } 
-  
-    // let botAnswer = sentences.join(' ').trim();
-    // console.log("this is botanswer", botAnswer)
-    
+  }    
     console.log('before bot reply');
-    // console.log(typeof botAnswer)
     const botReply={
-      text: answer, // insert here
+      text: answer, 
       sender: 'bot'
       };
     console.log('after bot reply');
     
     setTimeout(() => {
       setMessages(prevMessages => [...prevMessages, botReply]); 
-      setIsWaitingForResponse(false);//update state      
+      setIsWaitingForResponse(false);   
     }, 1000);   
    }
     
@@ -133,20 +120,20 @@ function App(){
       <div className="header-border" >
         <button className='heading-container'onClick={handleRefresh} style={{display: 'inline-block', marginRight: '20px'}}><FontAwesomeIcon icon={ faRefresh } /></button>
         <h1 className='heading-container'style={{textAlign: 'center', display:'inline-block'}}>AI Chatbot</h1>     
-        {/* <img width="40" height="40" src="https://img.icons8.com/stickers/100/chatbot.png" alt="chatbot"/>              */}
+       </div>
           <div className='message-container' ref={lastMessage}>   
           <ChatForm handleUserMessage={handleUserMessage} messages={messages} isWaitingForResponse={isWaitingForResponse} />  
           {messages.map((message, index)=>(
             <div key={index} className={`message ${message.sender === 'bot' ? 'bot':'user'}` }>              
-              {message.sender === 'bot' && (<img className='bot-avatar' src="https://img.icons8.com/color/36/000000/administrator-male.png" alt="bot-avatar"></img>)}
-              {message.sender !== 'bot' && (<img className='user-avatar' src="https://img.icons8.com/office/36/000000/person-female.png" alt="user-avatar"></img>)}
+              {message.sender === 'bot' && (<img width="35" height="40" className='bot-avatar'  src="https://img.icons8.com/fluency/48/retro-robot.png" alt="bot-avatar"></img>)}
+              {message.sender !== 'bot' && (<img className='user-avatar'  src="https://img.icons8.com/color/36/000000/administrator-male.png" alt="user-avatar"></img>)}
               <div className='message-box'>  
                 {message.text}
               </div>
             </div>
           ))}
           </div>     
-      </div>        
+              
     </div>        
   );
 }
