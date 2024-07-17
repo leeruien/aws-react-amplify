@@ -32,23 +32,23 @@ function App(){
       // change api endpoint url ip to public ipv4 address of chromadb ec2 instance 
       //https://nhc6dafwmk.execute-api.ap-southeast-1.amazonaws.com/question_input 
       //http://54.169.228.16:8080/api
-        const response = await fetch('http://52.221.210.138:80/api', { 
-          mode: 'cors',
-          method: 'POST',
-          body: JSON.stringify({
-            input_text: userMessageString }),
-          headers: {
-              'Content-Type': 'application/json'
-          }
-      }).catch(function (error) {
-          console.log("Error comunicating to server", error.response);
-      })
+    const response = await fetch('http://52.221.210.138:80/api', { 
+      mode: 'cors',
+      method: 'POST',
+      body: JSON.stringify({
+        input_text: userMessageString }),
+      headers: {
+          'Content-Type': 'application/json'
+    }
+    }).catch(function (error) {
+        console.log("Error comunicating to server", error.response);
+    })
 
-      console.log("after flask api")      
-      console.log('API Response: success', response.body);
-      const responseData = await response.json()
-      const responseBody = JSON.parse(responseData.body);
-      console.log("response body", responseBody["generated_text"])
+    console.log("after flask api")      
+    console.log('API Response: success', response.body);
+    const responseData = await response.json()
+    const responseBody = JSON.parse(responseData.body);
+    console.log("response body", responseBody["generated_text"])
     setIsWaitingForResponse(true);
     setMessages(prevMessages => [...prevMessages, userMessageObj]);    
     //get generated text
@@ -75,13 +75,13 @@ function App(){
     answer = answer.substr(1);
     answer = answer.trim();
     }  
-  let lastSentence = answer.search(/([.!?])(?=[^.!?]*$)/);
+    let lastSentence = answer.search(/([.!?])(?=[^.!?]*$)/);
 
-  // Keep everything up to and including the last complete sentence
-  if (lastSentence !== -1) {  
-    answer = answer.substring(0, lastSentence + 1);
-    answer = answer.trim();
-  }    
+    // Keep everything up to and including the last complete sentence
+    if (lastSentence !== -1) {  
+      answer = answer.substring(0, lastSentence + 1);
+      answer = answer.trim();
+    }    
     console.log('before bot reply');
     const botReply={
       text: answer, 
