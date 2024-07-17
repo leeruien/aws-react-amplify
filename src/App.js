@@ -45,14 +45,9 @@ function App(){
       })
 
       console.log("after flask api")      
-      console.log('API Response: success', response);
       console.log('API Response: success', response.body);
       const responseData = await response.json()
-      console.log('API Response: success', responseData.body);    // changed here
-      console.log(typeof(responseData))
-      console.log("response data body", responseData)
       const responseBody = JSON.parse(responseData.body);
-      console.log(typeof(responseBody))
       console.log("response body", responseBody["generated_text"])
     setIsWaitingForResponse(true);
     setMessages(prevMessages => [...prevMessages, userMessageObj]);    
@@ -68,6 +63,7 @@ function App(){
                     .replaceAll(/[[\]{}"]|/g, '').trim();
 
     console.log("this is answer 2", answer)  
+    // Ensure answer does not start with a special character
     while (answer.charAt(0) === '.' || 
        answer.charAt(0) === '=' || 
        answer.charAt(0) === '#' ||
@@ -81,8 +77,8 @@ function App(){
     }  
   let lastSentence = answer.search(/([.!?])(?=[^.!?]*$)/);
 
-  if (lastSentence !== -1) {
-    // Keep everything up to and including the last complete sentence
+  // Keep everything up to and including the last complete sentence
+  if (lastSentence !== -1) {  
     answer = answer.substring(0, lastSentence + 1);
     answer = answer.trim();
   }    
@@ -98,8 +94,7 @@ function App(){
       setIsWaitingForResponse(false);   
     }, 1000);   
    }
-    
- 
+  
   const handleRefresh=()=>{
     setMessages([]);
     sendGreetingMessage();
@@ -120,8 +115,8 @@ function App(){
       <div className="header-border" >
         <button className='heading-container'onClick={handleRefresh} style={{display: 'inline-block', marginRight: '20px'}}><FontAwesomeIcon icon={ faRefresh } /></button>
         <h1 className='heading-container'style={{textAlign: 'center', display:'inline-block'}}>AI Chatbot</h1>     
-       </div>
-          <div className='message-container' ref={lastMessage}>   
+      </div>
+        <div className='message-container' ref={lastMessage}>   
           <ChatForm handleUserMessage={handleUserMessage} messages={messages} isWaitingForResponse={isWaitingForResponse} />  
           {messages.map((message, index)=>(
             <div key={index} className={`message ${message.sender === 'bot' ? 'bot':'user'}` }>              
@@ -132,8 +127,7 @@ function App(){
               </div>
             </div>
           ))}
-          </div>     
-              
+        </div>                  
     </div>        
   );
 }
